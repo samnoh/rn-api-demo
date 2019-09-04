@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, ScrollView } from 'react-native';
+import { Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
 const SearchScreen = () => {
     const [term, setTerm] = useState('');
-    const [searchApi, results, errorMessage] = useResults();
+    const [searchApi, results, errorMessage, refreshing] = useResults();
 
     const filterResultsByPrice = price => results.filter(result => result.price === price);
 
@@ -24,6 +24,9 @@ const SearchScreen = () => {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.contentContainer}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={() => searchApi(term)} />
+                }
             >
                 <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
                 <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
