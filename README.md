@@ -83,6 +83,14 @@ exampleComponent.navigationOptions = ({ navigation }) => {
 };
 ```
 
+-   `withNavigation` -> directly pass down `navigation` in props
+
+```jsx
+import { withNavigation } from 'react-navigation';
+...
+export default withNavigation(exampleComponent);
+```
+
 ### SafeAreaView
 
 -   Render content within the safe area boundaries of a device (only iOS devices)
@@ -97,4 +105,17 @@ exampleComponent.navigationOptions = ({ navigation }) => {
 
 ```jsx
 <ScrollView contentContainerStyle={styles.contentContainer}>...</ScrollView>
+```
+
+### StatusBar
+
+-   `backgroundColor`
+-   `barStyle`
+    -   light-content
+    -   dark-content
+
+```jsx
+import { StatusBar } from 'react-native';
+...
+<StatusBar barStyle="light-content" />;
 ```
