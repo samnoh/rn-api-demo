@@ -1,45 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, ScrollView } from 'react-native';
 
 import SearchBar from '../components/SearchBar';
-import yelp from '../api/yelp';
+import useResults from '../hooks/useResults';
+import ResultsList from '../components/ResultsList';
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    contentContainer: {
+        paddingBottom: 20
+    }
+});
 
 const SearchScreen = () => {
     const [term, setTerm] = useState('');
-    const [results, setResults] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [searchApi, results, errorMessage] = useResults();
 
-    useEffect(() => {
-        searchApi('pasta');
-    }, []);
-
-    const searchApi = async searchTerm => {
-        try {
-            const res = await yelp.get('/search', {
-                params: {
-                    limit: 50,
-                    term: searchTerm,
-                    location: 'Auckland'
-                }
-            });
-            setErrorMessage('');
-            setResults(res.data.businesses);
-        } catch (e) {
-            setErrorMessage('Something went wrong');
-        }
-    };
+    const filterResultsByPrice = price => results.filter(result => result.price === price);
 
     return (
-        <View>
+        <>
             <SearchBar tearm={term} onTermChange={setTerm} onTermSubmit={() => searchApi(term)} />
             {errorMessage ? <Text>{errorMessage}</Text> : null}
-            <Text>
-                {term} {results.length}
-            </Text>
-        </View>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.contentContainer}
+            >
+                <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
+                <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
+                <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" />
+                <ResultsList results={filterResultsByPrice('$$$$')} title="Expensive" />
+            </ScrollView>
+        </>
     );
+};
+
+SearchScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerBackTitle: 'Back'
+    };
 };
 
 export default SearchScreen;
