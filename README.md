@@ -29,3 +29,72 @@ SECRET_KEY=VALUE
 ```javascript
 import { SECRET_KEY } from 'react-native-dotenv';
 ```
+
+### Expo Icons
+
+-   [List](https://expo.github.io/vector-icons/)
+
+```jsx
+import { AntDesign } from '@expo/vector-icons';
+...
+return <AntDesign name="check" size={30} />;
+```
+
+### TextInput
+
+-   `onEndEditing`
+
+```jsx
+<TextInput onEndEditing={() => {}} />
+```
+
+### FlatList
+
+-   Re-render FlatList
+
+```jsx
+<FlatList key={data.length} /> // Functional or Pure components
+<FlatList extraData={data} /> // Class components
+```
+
+### Navigation
+
+-   Parameters
+
+```jsx
+navigation.navigate('exampleScreen', { id: data.id }); // set
+```
+
+```jsx
+const id = navigation.getParam('id'); // get
+```
+
+-   Styling
+
+```jsx
+exampleComponent.navigationOptions = ({ navigation }) => {
+    return {
+        title: navigation.getParam('name'),
+        headerStyle: { backgroundColor: 'blue' },
+        headerBackTitle: 'Back',
+        headerBackTitleStyle: { color: 'white' },
+        headerTintColor: 'white' // '<' Chevron Left Icon
+    };
+};
+```
+
+### SafeAreaView
+
+-   Render content within the safe area boundaries of a device (only iOS devices)
+
+```jsx
+<SafeAreaView>...</SafeAreaView>
+```
+
+### ScrollView
+
+-   `contentContainerStyle`
+
+```jsx
+<ScrollView contentContainerStyle={styles.contentContainer}>...</ScrollView>
+```

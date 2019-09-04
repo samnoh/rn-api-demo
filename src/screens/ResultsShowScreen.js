@@ -40,7 +40,7 @@ const ResultsShowScreen = ({ navigation }) => {
                     data={result.photos}
                     keyExtractor={photo => photo}
                     renderItem={({ item }) => (
-                        <Image resizeMode={'cover'} style={styles.image} source={{ uri: item }} />
+                        <Image resizeMode="cover" style={styles.image} source={{ uri: item }} />
                     )}
                 />
             </SafeAreaView>
