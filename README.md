@@ -17,3 +17,15 @@ npm install --save-dev react-native-dotenv
     "presets": ["babel-preset-expo", "module:react-native-dotenv"]
 }
 ```
+
+-   `.env`
+
+```
+SECRET_KEY=VALUE
+```
+
+-   Usage
+
+```javascript
+import { SECRET_KEY } from 'react-native-dotenv';
+```
