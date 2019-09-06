@@ -1,4 +1,4 @@
-# React Native Restaurant Search App
+# React Native API Demo
 
 ## `TIL`
 
